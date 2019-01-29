@@ -1,29 +1,42 @@
 import React from 'react'
 import { View, Button } from 'react-native'
 import { connect } from 'react-redux'
+import { StackActions } from 'react-navigation'
 import { fetchMovies } from 'actions/movies'
 import MovieList from 'components/MovieList'
 
 import styles from './styles'
 
-const Movies = (props) => {
-  const { movies } = props
-  const { results } = movies
+class Movies extends React.PureComponent {
+  componentDidMount() {
+    this.props.dispatch(fetchMovies())
+  }
 
-  if (results.length === 0) {
+  render() {
+    const { movies } = this.props
+    const { results } = movies
+
+    if (results.length === 0) {
+      return (
+        <View style={styles.container}>
+          <Button 
+            title="Reload"
+            onPress={_ => this.props.dispatch(fetchMovies())} />
+        </View>
+      )
+    }
+
     return (
-      <View style={styles.container}>
-        <Button 
-          title="Reload"
-          onPress={_ => props.dispatch(fetchMovies())} />
-      </View>
+      <MovieList 
+        items={results}
+        onCellPress={movie => 
+          this.props.navigation.dispatch(StackActions.push({
+            routeName: 'Details',
+            params: {}
+          }))} 
+      />
     )
   }
-  return (
-    <MovieList 
-      items={results}
-      onCellPress={movie => console.log(movie)} />
-  )
 }
 
 export default connect(state => state)(Movies)
