@@ -13,15 +13,16 @@ const requestMovies = (page) => {
 const receiveMovies = (json) => {
   return {
     type: RECEIVE_MOVIES,
-    movies: json,
-    receivedAt: Date.now()
+    movies: json
   }
 }
 
-export const fetchMovies = () => {
+export const fetchMovies = (page=1) => {
   return dispatch => {
-    dispatch(requestMovies())
-    return fetch(url)
+    dispatch(requestMovies(page))
+    console.log('fetching movies ...')
+    const query = `&page=${page}`
+    return fetch(url + query)
       .then(response => response.json())
       .then(json => dispatch(receiveMovies(json)))
   }

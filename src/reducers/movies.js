@@ -5,6 +5,7 @@ import {
 
 const movies = (state={
   isFetching: false,
+  page: 1,
   results: []
 }, action) => {
   switch(action.type) {
@@ -12,13 +13,15 @@ const movies = (state={
       return {
         ...state,
         isFetching: true,
-        results: []
       }
     case RECEIVE_MOVIES:
       return {
-        ...state,
         isFetching: false,
-        ...action.movies
+        page: action.movies.page,
+        results: [
+          ...state.results,
+          ...action.movies.results
+        ]
       }
     default:
       return state
