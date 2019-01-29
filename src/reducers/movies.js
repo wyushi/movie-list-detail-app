@@ -10,26 +10,35 @@ const movies = (state={
 }, action) => {
   switch(action.type) {
     case REQUEST_MOVIES:
-      return {
-        ...state,
-        isFetching: true,
-        page: action.page
-      }
+      return handleRequestMoviesAction(state, action)
     case RECEIVE_MOVIES:
-      const { page } = action.movies
-      const results = page === 1 ?
-        action.movies.results : [
-          ...state.results,
-          ...action.movies.results
-        ]
-      return {
-        ...state,
-        isFetching: false,
-        page,
-        results
-      }
+      return handleReceiveMoviesAction(state, action)
     default:
       return state
+  }
+}
+
+const handleRequestMoviesAction = (state, action) => {
+  return {
+    ...state,
+    isFetching: true,
+    page: action.page
+  }
+}
+
+const handleReceiveMoviesAction = (state, action) => {
+  const { page, error } = action.movies
+  const results = page === 1 ?
+    action.movies.results : [
+      ...state.results,
+      ...action.movies.results
+    ]
+  return {
+    ...state,
+    isFetching: false,
+    page,
+    results,
+    error
   }
 }
 
