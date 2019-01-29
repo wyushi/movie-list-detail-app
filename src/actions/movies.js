@@ -20,7 +20,6 @@ const receiveMovies = (json) => {
 export const fetchMovies = (page=1) => {
   return dispatch => {
     dispatch(requestMovies(page))
-    console.log('fetching movies ...')
     const query = `&page=${page}`
     return fetch(url + query)
       .then(response => response.json())

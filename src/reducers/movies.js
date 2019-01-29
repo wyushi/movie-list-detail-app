@@ -13,15 +13,20 @@ const movies = (state={
       return {
         ...state,
         isFetching: true,
+        page: action.page
       }
     case RECEIVE_MOVIES:
-      return {
-        isFetching: false,
-        page: action.movies.page,
-        results: [
+      const { page } = action.movies
+      const results = page === 1 ?
+        action.movies.results : [
           ...state.results,
           ...action.movies.results
         ]
+      return {
+        ...state,
+        isFetching: false,
+        page,
+        results
       }
     default:
       return state

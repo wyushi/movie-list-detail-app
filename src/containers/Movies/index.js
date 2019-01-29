@@ -5,7 +5,6 @@ import { StackActions } from 'react-navigation'
 import { fetchMovies } from 'actions/movies'
 import MovieListCell from 'components/MovieListCell'
 
-
 import styles from './styles'
 
 class Movies extends React.PureComponent {
@@ -20,15 +19,8 @@ class Movies extends React.PureComponent {
     })
   }
 
-  refresh = _ => {
-    const { movies } = this.props
-    const { isFetching } = movies
-    if (isFetching) return
-    this.props.dispatch(fetchMovies())
-  }
-
   componentDidMount() {
-    this.refresh()
+    this.props.dispatch(fetchMovies())
   }
 
   renderCell = (data) => {
@@ -43,8 +35,7 @@ class Movies extends React.PureComponent {
   }
 
   renderFooter = () => {
-    const { movies } = this.props
-    const { isFetching, page } = movies
+    const { isFetching, page } = this.props
     if (isFetching && page > 1) {
       return <ActivityIndicator />
     } else {
@@ -53,16 +44,17 @@ class Movies extends React.PureComponent {
   }
 
   render() {
-    const { movies } = this.props
-    const { isFetching, page, results } = movies
-    const initialFetching = isFetching && page === 1
+    const { isFetching, page, results } =  this.props
 
     return (
       <ListView style={styles.container}
-        refreshControl={<RefreshControl
-          refreshing={initialFetching}
-          onRefresh={this.refresh}
-        />}
+        refreshControl={
+          <RefreshControl
+            refreshing={isFetching && page === 1}
+            onRefresh={_ => {
+              this.props.dispatch(fetchMovies())
+            }}
+          />}
         dataSource={this.ds.cloneWithRows(results)}
         enableEmptySections={true}
         renderRow={this.renderCell}
@@ -75,4 +67,4 @@ class Movies extends React.PureComponent {
   }
 }
 
-export default connect(state => state)(Movies)
+export default connect(state => state.movies)(Movies)
