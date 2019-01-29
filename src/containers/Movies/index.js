@@ -19,7 +19,11 @@ const Movies = (props) => {
       </View>
     )
   }
-  return <MovieList items={results} />
+  return (
+    <MovieList 
+      items={results}
+      onCellPress={movie => console.log(movie)} />
+  )
 }
 
 export default connect(state => state)(Movies)

@@ -1,5 +1,6 @@
 import React from 'react'
-import { ListView, Text, View } from 'react-native'
+import PropTypes from 'prop-types'
+import { ListView } from 'react-native'
 import MovieListCell from 'components/MovieListCell'
 
 import styles from './styles'
@@ -18,9 +19,22 @@ class MovieList extends React.PureComponent {
     return (
       <ListView style={styles.container}
         dataSource={this.ds.cloneWithRows(items)}
-        renderRow={(data) => <MovieListCell movie={data}/>} />
+        renderRow={data => (
+          <MovieListCell 
+            movie={data} 
+            onCellPress={this.props.onCellPress} />
+        )} />
     )
   }
+}
+
+MovieList.propTypes = {
+  items: PropTypes.array.isRequired,
+  onCellPress: PropTypes.func,
+}
+
+MovieList.defaultProps = {
+  onCellPress: _ => {},
 }
 
 export default MovieList
