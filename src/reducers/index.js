@@ -4,7 +4,7 @@ import apiConfig from './api-config'
 import movies from './movies'
 
 const rootReducer = combineReducers({
-  apiConfig,
+  // apiConfig,
   movies
 })
 
