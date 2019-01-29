@@ -8,6 +8,10 @@ import MovieList from 'components/MovieList'
 import styles from './styles'
 
 class Movies extends React.PureComponent {
+  static navigationOptions = {
+    title: 'Movies'
+  }
+  
   componentDidMount() {
     this.props.dispatch(fetchMovies())
   }
@@ -32,7 +36,7 @@ class Movies extends React.PureComponent {
         onCellPress={movie => 
           this.props.navigation.dispatch(StackActions.push({
             routeName: 'Details',
-            params: {}
+            params: { title: movie.title }
           }))} 
       />
     )
