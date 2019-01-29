@@ -6,7 +6,7 @@ import styles from './styles'
 class Movie extends React.PureComponent {
   static navigationOptions = ({navigation}) => {
     return {
-         title: navigation.state.params.title
+         title: navigation.state.params.movie.title
     }
   }
 

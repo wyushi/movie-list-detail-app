@@ -41,7 +41,7 @@ class Movies extends React.PureComponent {
         movie={data} 
         onCellPress={movie => this.props.navigation.dispatch(StackActions.push({
           routeName: 'Details',
-          params: { title: movie.title }
+          params: { movie }
         }))} />
     )
   }
