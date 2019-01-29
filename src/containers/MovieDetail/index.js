@@ -3,12 +3,20 @@ import { View, Text } from 'react-native'
 
 import styles from './styles'
 
-const Movie = (props) => {
-  return (
-    <View style={styles.container}>
-      <Text>Movie Detail</Text>
-    </View>
-  )
+class Movie extends React.PureComponent {
+  static navigationOptions = ({navigation}) => {
+    return {
+         title: navigation.state.params.title
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Movie Detail</Text>
+      </View>
+    )
+  }
 }
 
 export default Movie
