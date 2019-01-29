@@ -25,6 +25,5 @@ export const fetchMovies = (page=1) => {
     return fetch(url + query)
       .then(response => response.json())
       .then(json => dispatch(receiveMovies(json)))
-      .catch(error => dispatch(receiveMovies(null, error)))
   }
 }

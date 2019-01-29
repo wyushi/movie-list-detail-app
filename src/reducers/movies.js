@@ -6,7 +6,8 @@ import {
 const movies = (state={
   isFetching: false,
   page: 1,
-  results: []
+  results: [],
+  error: null
 }, action) => {
   switch(action.type) {
     case REQUEST_MOVIES:
@@ -22,23 +23,34 @@ const handleRequestMoviesAction = (state, action) => {
   return {
     ...state,
     isFetching: true,
-    page: action.page
+    page: action.page, 
+    error: null
   }
 }
 
 const handleReceiveMoviesAction = (state, action) => {
-  const { page, error } = action.movies
+  if (!action.movies.results) {
+    return {
+      ...state,
+      isFetching: false,
+      error: {
+        ...action.movies,
+        message: JSON.stringify(action.movies)
+      }
+    }
+  }
+
+  const { page } = action.movies
   const results = page === 1 ?
     action.movies.results : [
       ...state.results,
-      ...action.movies.results
-    ]
+      ...action.movies.results ]
   return {
     ...state,
     isFetching: false,
     page,
     results,
-    error
+    error: null
   }
 }
 

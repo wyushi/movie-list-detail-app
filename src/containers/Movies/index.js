@@ -1,5 +1,8 @@
 import React from 'react'
-import { ListView, RefreshControl, ActivityIndicator } from 'react-native'
+import { 
+  View, ListView, 
+  RefreshControl, ActivityIndicator, Text, Button
+} from 'react-native'
 import { connect } from 'react-redux'
 import { StackActions } from 'react-navigation'
 import { fetchMovies } from 'actions/movies'
@@ -23,6 +26,15 @@ class Movies extends React.PureComponent {
     this.props.dispatch(fetchMovies())
   }
 
+  renderErrorReload = (error) => {
+    return (
+      <View style={styles.errorContainer}>
+        <Text>{error.message}</Text>
+        <Button title="Reload" onPress={_ => this.props.dispatch(fetchMovies())} />
+      </View>
+    )
+  }
+
   renderCell = (data) => {
     return (
       <MovieListCell 
@@ -35,7 +47,7 @@ class Movies extends React.PureComponent {
   }
 
   renderFooter = () => {
-    const { isFetching, page } = this.props
+    const { isFetching, page } = this.props.movies
     if (isFetching && page > 1) {
       return <ActivityIndicator />
     } else {
@@ -44,16 +56,17 @@ class Movies extends React.PureComponent {
   }
 
   render() {
-    const { isFetching, page, results } =  this.props
+    const { isFetching, page, results, error } =  this.props.movies
+    if (error) { 
+      return this.renderErrorReload(error) 
+    }
 
     return (
       <ListView style={styles.container}
         refreshControl={
           <RefreshControl
             refreshing={isFetching && page === 1}
-            onRefresh={_ => {
-              this.props.dispatch(fetchMovies())
-            }}
+            onRefresh={_ => this.props.dispatch(fetchMovies())}
           />}
         dataSource={this.ds.cloneWithRows(results)}
         enableEmptySections={true}
@@ -67,4 +80,6 @@ class Movies extends React.PureComponent {
   }
 }
 
-export default connect(state => state.movies)(Movies)
+const mapStateToProps = (state) => ({ movies: state.movies })
+
+export default connect(mapStateToProps)(Movies)
