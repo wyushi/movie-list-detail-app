@@ -1,5 +1,6 @@
 import React from 'react'
 import { ListView, Text, View } from 'react-native'
+import MovieListCell from 'components/MovieListCell'
 
 import styles from './styles'
 
@@ -15,11 +16,9 @@ class MovieList extends React.PureComponent {
   render() {
     const { items=[] } = this.props
     return (
-      <View style={styles.container}>
-        <ListView
-          dataSource={this.ds.cloneWithRows(items)}
-          renderRow={(rowData) => <Text>{rowData.id}</Text>} />
-      </View>
+      <ListView style={styles.container}
+        dataSource={this.ds.cloneWithRows(items)}
+        renderRow={(data) => <MovieListCell movie={data}/>} />
     )
   }
 }
