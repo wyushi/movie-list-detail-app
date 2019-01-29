@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import Movies from 'containers/Movies'
+import RootNav from 'containers/RootNav'
 
 import store from './redux-store'
 
@@ -8,7 +8,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Movies />
+        <RootNav />
       </Provider>
     )
   }
