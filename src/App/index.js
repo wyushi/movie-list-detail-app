@@ -1,14 +1,15 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Provider } from 'react-redux'
+import AppContent from 'components/Content'
 
-import styles from './styles'
+import store from './redux-store'
 
 class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <Provider store={store}>
+        <AppContent />
+      </Provider>
     )
   }
 }
