@@ -3,12 +3,14 @@ import {
   RECEIVE_MOVIES
 } from 'actions/movies'
 
-const movies = (state={
+export const initialState = {
   isFetching: false,
   page: 1,
   results: [],
   error: null
-}, action) => {
+}
+
+const movies = (state=initialState, action) => {
   switch(action.type) {
     case REQUEST_MOVIES:
       return handleRequestMoviesAction(state, action)
