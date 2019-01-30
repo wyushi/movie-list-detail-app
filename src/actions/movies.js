@@ -10,11 +10,10 @@ const requestMovies = (page) => {
   }
 }
 
-const receiveMovies = (json, error) => {
+const receiveMovies = (json) => {
   return {
     type: RECEIVE_MOVIES,
-    movies: json,
-    error,
+    movies: json
   }
 }
 
