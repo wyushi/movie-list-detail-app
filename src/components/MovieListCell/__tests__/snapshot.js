@@ -2,7 +2,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 
 import MovieListCell from '../index'
-import data from './data.json'
+import data from '../../../config/jest/mockData'
 
 it('renders a MovieListCell using Snapshots', () => {
   expect(renderer.create(
