@@ -14,7 +14,7 @@ const MovieListCell = (props) => {
       <View style={styles.container}>
         <Image 
           style={styles.thumbnail}
-          source={{uri: 'https://image.tmdb.org/t/p/w92/' + movie['poster_path']}}
+          source={{uri: 'https://image.tmdb.org/t/p/w342/' + movie['poster_path']}}
         />
         <View style={styles.info}>
           <Text style={styles.title}>{movie['title']}</Text>
