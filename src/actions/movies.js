@@ -1,7 +1,7 @@
+import { popularMovies } from 'utils/endpoints'
+
 export const REQUEST_MOVIES = 'REQUEST_MOVIES'
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES'
-
-const url = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3403673c3e3cf351c8741bda8180865e'
 
 export const requestMovies = (page) => {
   return {
@@ -20,8 +20,7 @@ export const receiveMovies = (json) => {
 export const fetchMovies = (page=1) => {
   return dispatch => {
     dispatch(requestMovies(page))
-    const query = `&page=${page}`
-    return fetch(url + query)
+    return fetch(popularMovies(page))
       .then(response => response.json())
       .then(json => dispatch(receiveMovies(json)))
   }
