@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Image, TouchableHighlight } from 'react-native'
+import { imageURL, ImageType } from 'utils/endpoints'
 
 import styles from './styles'
 
@@ -14,7 +15,7 @@ const MovieListCell = (props) => {
       <View style={styles.container}>
         <Image 
           style={styles.thumbnail}
-          source={{uri: 'https://image.tmdb.org/t/p/w342/' + movie['poster_path']}}
+          source={{uri: imageURL(movie['poster_path'], ImageType.THUMBNAIL)}}
         />
         <View style={styles.info}>
           <Text style={styles.title}>{movie['title']}</Text>

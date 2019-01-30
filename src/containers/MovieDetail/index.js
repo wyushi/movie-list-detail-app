@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
+import { imageURL, ImageType } from 'utils/endpoints'
 
 import styles from './styles'
 
@@ -18,7 +19,7 @@ class Movie extends React.PureComponent {
         <View style={styles.posterContainer}>
           <Image 
             style={styles.poster}
-            source={{uri: 'https://image.tmdb.org/t/p/w780/' + movie['poster_path']}}/>
+            source={{uri: imageURL(movie['poster_path'], ImageType.POSTER)}}/>
         </View>
         <Text>{movie.title}</Text>
         <Text>{movie.overview}</Text>
