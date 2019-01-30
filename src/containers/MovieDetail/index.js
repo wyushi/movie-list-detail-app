@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 
 import styles from './styles'
 
@@ -11,9 +11,17 @@ class Movie extends React.PureComponent {
   }
 
   render() {
+    const { movie } = this.props.navigation.state.params
+
     return (
       <View style={styles.container}>
-        <Text>Movie Detail</Text>
+        <View style={styles.posterContainer}>
+          <Image 
+            style={styles.poster}
+            source={{uri: 'https://image.tmdb.org/t/p/w780/' + movie['poster_path']}}/>
+        </View>
+        <Text>{movie.title}</Text>
+        <Text>{movie.overview}</Text>
       </View>
     )
   }
